@@ -26,7 +26,17 @@ app.post('/feedbacks', async (req, res) => {
     }
   });
 
-  transport.sendMail({});
+  await transport.sendMail({
+    from: 'Equipe Feeget <oi@feedget.com>',
+    to: 'Anne Bortoli <annebortoli@gmail.com>',
+    subject: 'Novo feedback',
+    html: [
+      `<div style="font-family: sans-serif; font-size:16px; color: #414141">`,
+      `<p>Tipo do feedback: ${type}</p>`,
+      `<p>Comentário: ${comment}</p>`,
+      `</div>`
+    ].join('\n')
+  });
 
   return res.status(201).json({ data: feedback });
 });
